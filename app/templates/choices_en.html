@@ -21,6 +21,13 @@
     {{ form_indicator.indicators(onchange='change_something("indicator_id");') }}
     <a class="label label-primary" href="/prepare_for_download/get_data**bla" target="_blank"  style="margin-right: 5px;">{{download_data }}</a>
   </form>
+
+
+  <!-- warming level choice  -->
+  <form method="POST" action="/warming_lvl_choice" id="country_id">
+    <h3>Country</h3>
+    {{ form_warming_lvl.warming_lvls(onchange='change_something("country_id");') }}
+  </form>
 </div>
 
 <!-- right part of the website -->

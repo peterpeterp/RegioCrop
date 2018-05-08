@@ -90,7 +90,7 @@ def choices():
         # define local variables for convenience
         s=session
         lang=s['language']
-        region=s['region']
+#        region=s['region']
 
         # fill the form for country choice
         form_country = forms.countryForm(request.form)
@@ -102,7 +102,9 @@ def choices():
         form_indicator = forms.indicatorForm(request.form)
         form_indicator.indicators.choices = zip(s['indicator_avail'],[indicator_dict[lang][ind][0].upper()+indicator_dict[lang][ind][1:] for ind in s['indicator_avail']])
 
-
+        # fill the form for the warming level choice
+        form_warming_lvl = forms.warming_lvlForm(request.form)
+        form_warming_lvl.warming_lvls.choices = zip(['one','two'],[1,2])
 
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
@@ -114,6 +116,7 @@ def choices():
 
             'form_country':form_country,
             'form_indicator':form_indicator,
+            'form_warming_lvl':form_warming_lvl,
 
             'indicator':indicator_dict[lang][s['indicator']],
         }
@@ -135,26 +138,16 @@ def choices():
 ###############################
 # option choices
 ###############################
-@app.route('/indicator_choice',  methods=('POST', ))
-def indicator_choice():
-  form_indicator = forms.indicatorForm(request.form)
-  session['indicator']=form_indicator.indicators.data
-  # put chosen at beginning of list
-  session['indicator_avail']=['tas','TXx','pr','RX1','year_RX5']
-  session['indicator_avail']=[session['indicator']]+[ind for ind in ['tas','TXx','pr','RX1','year_RX5'] if ind!=session['indicator']]
-  #index=session['indicator_avail'].index(session['indicator'])
-  #session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
-  if ind_dict[session['indicator']]['time_step']=='yearly':  session["season_avail"]=['year']
-  if ind_dict[session['indicator']]['time_step']=='monthly':  session["season_avail"]=settings.seasons.keys()
-  if session["season"] not in session["season_avail"]: session["season"] = 'year'
-  return redirect(url_for('choices'))
-
 @app.route('/country_choice',  methods=('POST', ))
 def country_choice():
   form_country = forms.countryForm(request.form)
   session['country']=form_country.countrys.data
 
   return redirect(url_for('choices'))
+
+# Add functions to change the indicator and the warming levels. Make use of classes already defined in forms.py is easier.
+
+
 ###############################
 # Download
 ###############################
