@@ -75,6 +75,11 @@ def index():
     index=session['indicator_avail'].index(session['indicator'])
     session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
 
+    session["warming_lvl_avail"]   = ['1p0','1p5','2p0','2p5','3p0']
+    session["warming_lvl"]   = '1p5'
+    index=session['warming_lvl_avail'].index(session['warming_lvl'])
+    session['warming_lvl_avail'][index],session['warming_lvl_avail'][0]=session['warming_lvl_avail'][0],session['warming_lvl_avail'][index]
+
 
     session['location']='index'
     return redirect(url_for("choices"))
@@ -95,23 +100,28 @@ def choices():
         # fill the form for country choice
         form_country = forms.countryForm(request.form)
         s["country_avail"]   = sorted(settings.country_names.keys())
-        s['country_avail']=[s['country']]+[sea for sea in s['country_avail'] if sea != s['country']]
+        s['country_avail']=[s['country']]+[co for co in s['country_avail'] if co != s['country']]
         form_country.countrys.choices = zip(s['country_avail'],[settings.country_names[cou][lang] for cou in s['country_avail']])
 
         # fill indicator forms - restrict for small regions
         form_indicator = forms.indicatorForm(request.form)
+        s["indicator_avail"]   = sorted(settings.country_names.keys())
+        s['indicator_avail']=[s['indicator']]+[sea for sea in s['indicator_avail'] if sea != s['indicator']]
+        print(s['indicator_avail'])
         form_indicator.indicators.choices = zip(s['indicator_avail'],[indicator_dict[lang][ind][0].upper()+indicator_dict[lang][ind][1:] for ind in s['indicator_avail']])
 
         # fill the form for the warming level choice
         form_warming_lvl = forms.warming_lvlForm(request.form)
-        form_warming_lvl.warming_lvls.choices = zip(['one','two'],[1,2])
+        s["warming_lvl_avail"]   = sorted(settings.country_names.keys())
+        s['warming_lvl_avail']=[s['warming_lvl']]+[sea for sea in s['warming_lvl_avail'] if sea != s['warming_lvl']]
+        form_warming_lvl.warming_lvls.choices = zip(s['warming_lvl_avail'],[warming_lvl_dict[lang][wlvl][0].upper()+warming_lvl_dict[lang][wlvl][1:] for wlvl in s['warming_lvl_avail']])
 
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
         context={
-            'firr_map':'static/plots_maps/'+s['country']+'_firr_2p0.png',
-            'noirr_map':'static/plots_maps/'+s['country']+'_noirr_2p0.png',
+            'firr_map':'static/plots_maps/'+s['country']+'_firr_'+s['warming_lvl']+'.png',
+            'noirr_map':'static/plots_maps/'+s['country']+'_noirr_'+s['warming_lvl']+'.png',
             'boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_co2_'+settings.country_names[s['country']]['en']+'.png',
 
             'form_country':form_country,
@@ -145,8 +155,19 @@ def country_choice():
 
   return redirect(url_for('choices'))
 
-# Add functions to change the indicator and the warming levels. Make use of classes already defined in forms.py is easier.
+@app.route('/indicator_choice',  methods=('POST', ))
+def indicator_choice():
+  form_indicator = forms.indicatorForm(request.form)
+  session['indicator']=form_indicator.indicators.data
 
+  return redirect(url_for('choices'))
+
+@app.route('/warming_lvl_choice',  methods=('POST', ))
+def warming_lvl_choice():
+  form_warming_lvl = forms.warming_lvlForm(request.form)
+  session['warming_lvl']=form_warming_lvl.warming_lvls.data
+
+  return redirect(url_for('choices'))
 
 ###############################
 # Download

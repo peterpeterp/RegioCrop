@@ -1,2 +1,2 @@
-app/static/plots_maps
-app/static/plots_boxplots
+app/static/plots_maps/*
+app/static/plots_boxplots/*
