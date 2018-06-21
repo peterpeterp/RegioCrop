@@ -34,11 +34,11 @@ import forms
 import settings
 ind_dict=settings.ind_dict
 indicator_dict=settings.indicator_dict
-season_dict=settings.season_dict
 form_labels=settings.form_labels
 text_dict=settings.text_dict
 button_dict=settings.button_dict
 warming_lvl_dict=settings.warming_lvl_dict
+management_dict=settings.management_dict
 languages={'en':'English','fr':'Français'}
 
 # # not used, but could be useful
@@ -68,9 +68,9 @@ def index():
     # the following lines load lists of indicators, countries etc from settings and set the default parameters (SEN, tas etc.)
     session["country_avail"]   = sorted(settings.country_names.keys())
     session['country']   = session["country_avail"][0]
-    session['country']   = 'BEN'
+    session['country']   = 'AGO'
 
-    session["indicator_avail"]   = ['tas','yield_maize']
+    session["indicator_avail"]   = ['yield_maize','yield_wheat','yield_soy','yield_rice']
     session["indicator"]   = 'yield_maize'
     index=session['indicator_avail'].index(session['indicator'])
     session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
@@ -79,6 +79,11 @@ def index():
     session["warming_lvl"]   = '1p5'
     index=session['warming_lvl_avail'].index(session['warming_lvl'])
     session['warming_lvl_avail'][index],session['warming_lvl_avail'][0]=session['warming_lvl_avail'][0],session['warming_lvl_avail'][index]
+
+    session["management_avail"]   = ['all','firr','noirr']
+    session["management"]   = 'all'
+    index=session['management_avail'].index(session['management'])
+    session['management_avail'][index],session['management_avail'][0]=session['management_avail'][0],session['management_avail'][index]
 
 
     session['location']='index'
@@ -105,28 +110,33 @@ def choices():
 
         # fill indicator forms - restrict for small regions
         form_indicator = forms.indicatorForm(request.form)
-        s["indicator_avail"]   = sorted(settings.country_names.keys())
-        s['indicator_avail']=[s['indicator']]+[sea for sea in s['indicator_avail'] if sea != s['indicator']]
-        print(s['indicator_avail'])
+        s['indicator_avail']=[s['indicator']]+[ind for ind in s['indicator_avail'] if ind != s['indicator']]
         form_indicator.indicators.choices = zip(s['indicator_avail'],[indicator_dict[lang][ind][0].upper()+indicator_dict[lang][ind][1:] for ind in s['indicator_avail']])
 
         # fill the form for the warming level choice
         form_warming_lvl = forms.warming_lvlForm(request.form)
-        s["warming_lvl_avail"]   = sorted(settings.country_names.keys())
-        s['warming_lvl_avail']=[s['warming_lvl']]+[sea for sea in s['warming_lvl_avail'] if sea != s['warming_lvl']]
+        s['warming_lvl_avail']=[s['warming_lvl']]+[wlvl for wlvl in s['warming_lvl_avail'] if wlvl != s['warming_lvl']]
         form_warming_lvl.warming_lvls.choices = zip(s['warming_lvl_avail'],[warming_lvl_dict[lang][wlvl][0].upper()+warming_lvl_dict[lang][wlvl][1:] for wlvl in s['warming_lvl_avail']])
+
+        # fill the form for the choice ofthe agricultural management practice
+        form_management = forms.managementForm(request.form)
+        s['management_avail']=[s['management']]+[mgmt for mgmt in s['management_avail'] if mgmt != s['management']]
+        form_management.managements.choices = zip(s['management_avail'],[management_dict[lang][mgmt][0].upper()+management_dict[lang][mgmt][1:] for mgmt in s['management_avail']])
 
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
         context={
-            'firr_map':'static/plots_maps/'+s['country']+'_firr_'+s['warming_lvl']+'.png',
-            'noirr_map':'static/plots_maps/'+s['country']+'_noirr_'+s['warming_lvl']+'.png',
-            'boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_co2_'+settings.country_names[s['country']]['en']+'.png',
+            'hist_map':'static/plots_maps/'+s['country']+'_co2_'+s['management']+'_hist.png',
+            'proj_co2_map':'static/plots_maps/'+s['country']+'_co2_'+s['management']+'_'+s['warming_lvl']+'.png',
+            'proj_noco2_map':'static/plots_maps/'+s['country']+'_noco2_'+s['management']+'_'+s['warming_lvl']+'.png',
+            'proj_co2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_co2_'+settings.country_names[s['country']]['en']+'.png',
+            'proj_noco2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_noco2_'+settings.country_names[s['country']]['en']+'.png',
 
             'form_country':form_country,
             'form_indicator':form_indicator,
             'form_warming_lvl':form_warming_lvl,
+            'form_management':form_management,
 
             'indicator':indicator_dict[lang][s['indicator']],
         }
@@ -166,6 +176,13 @@ def indicator_choice():
 def warming_lvl_choice():
   form_warming_lvl = forms.warming_lvlForm(request.form)
   session['warming_lvl']=form_warming_lvl.warming_lvls.data
+
+  return redirect(url_for('choices'))
+
+@app.route('/management_choice',  methods=('POST', ))
+def management_choice():
+  form_management = forms.managementForm(request.form)
+  session['management']=form_management.managements.data
 
   return redirect(url_for('choices'))
 

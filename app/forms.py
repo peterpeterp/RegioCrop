@@ -30,33 +30,17 @@ class countryForm(Form):
   countrys = SelectField(' ', choices=[],
             validators=[Required("Please select at least one region.")])
 
-class regionForm(Form):
-  regions = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one region.")])
-
 class indicatorForm(Form):
   indicators = SelectField(u'', choices=[],
             validators=[Required("Please select at least one region.")])
 
-class scenarioForm(Form):
-  scenarios = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one region.")])
-
-class datasetForm(Form):
-  datasets = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one region.")])
-
-class seasonForm(Form):
-  seasons = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one season.")])
-
 class warming_lvlForm(Form):
   warming_lvls = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one period.")])
+            validators=[Required("Please select at least one global warming level.")])
 
-class warming_lvl_refForm(Form):
-  warming_lvl_refs = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one period.")])
+class managementForm(Form):
+  managements = SelectField(u'', choices=[],
+            validators=[Required("Please select at least one type of management practices.")])            
 
 class PeriodField(Form):
   regex = "[1-2][0-9]{3}-[1-2][0-9]{3}"

@@ -24,8 +24,14 @@
 
   <!-- warming level choice  -->
   <form method="POST" action="/warming_lvl_choice" id="warming_lvl_id">
-    <h3>Country</h3>
+    <h3>Warming level</h3>
     {{ form_warming_lvl.warming_lvls(onchange='change_something("warming_lvl_id");') }}
+  </form>
+
+  <!-- choice of agriculture practices -->
+  <form method="POST" action="/management_choice" id="management_id">
+    <h3>Management practice</h3>
+    {{ form_management.managements(onchange='change_something("management_id");') }}
   </form>
 </div>
 
@@ -35,34 +41,48 @@
   <h3>Regional climate model projections vizualized for the country scale </h3>
   <p>Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> or <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high resolution graphics.
   <!-- left top plot -->
-  <div id="LeftPanel" style="width: 50%; height: 100%; float: left;">
-    {% if EWEMBI_plot!='no_plot' %}
+  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
       <figure>
-        <IMG SRC={{ noirr_map }} ALT=' ' WIDTH=100%></IMG>
+        <IMG SRC={{ hist_map }} ALT='{{ hist_map }}' WIDTH=100%></IMG>
       </figure>
-    {% endif %}
+      <p>Simulated crop yield for the reference period 1986-2005 (+0.61°C above preindustrial) (ensemble median).
+        This map is based on the ISIMIP phase 1 dataset.
+        Data are shown for present-day irrigated and rainfed harvested areas.</p>
+  </div>
+  <!-- middle top plot -->
+  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
+      <figure>
+        <IMG SRC={{ proj_co2_map }} ALT='{{ proj_co2_map }}' WIDTH=100%></IMG>
+      </figure>
   </div>
   <!-- right top plot -->
-  <div id="LeftPanel" style="width: 50%; height: 100%; float: left;">
-    {% if Projection_plot!='no_plot' %}
+  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
       <figure>
-
-        <IMG SRC={{ firr_map }} ALT=' ' WIDTH=100%></IMG>
+        <IMG SRC={{ proj_noco2_map }} ALT='{{ proj_noco2_map }}' WIDTH=100%></IMG>
       </figure>
-    {% endif %}
   </div>
+  <p>Projected change in crop yield for +2.0°C above preindustrial compared to the reference period 1986-2005.
+     Here the ensemble median of global gridded crop model projections is displayed.
+     Grid-cells for which a model-disagreement is found are coloured in grey.
+     Grid-cell where the crop is not harvested are displayed in white.</p>
 </div>
 
 <div id="LeftPanel" style="width: 74%; height: 100%; float: left; padding-left: 2%;">
   <!-- left bottom plot -->
   <div id="LeftPanel" style="width: 50%; height: 100%; float: left;">
-    {% if transient_plot!='no_plot' %}
       <figure>
-        <IMG SRC={{ boxplot }} ALT=' ' WIDTH=100%></IMG>
+        <IMG SRC={{ proj_co2_boxplot }} ALT=' ' WIDTH=100%></IMG>
       </figure>
-    {% endif %}
   </div>
-
+  <!-- right bottom plot -->
+  <div id="LeftPanel" style="width: 50%; height: 100%; float: left;">
+      <figure>
+        <IMG SRC={{ proj_noco2_boxplot }} ALT=' ' WIDTH=100%></IMG>
+      </figure>
+  </div>
+  <p>Relative changes in national rainfed yield for different future warming level
+  compared to the reference period 1986-2005 (+0.61°C above preindustrial)
+  with CO2 effects.</p>
 </div>
 
 

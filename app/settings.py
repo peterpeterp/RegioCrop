@@ -50,63 +50,40 @@ for iso in all_isos:
 
 # indicators, units, timesteps
 ind_dict={
-	'tas':{'unit':'$^\circ C$','time_step':'monthly'},
-	'pr':{'unit':'mm','time_step':'monthly'},
-	'RX1':{'unit':'mm','time_step':'monthly'},
-	'TXx':{'unit':'$^\circ C$','time_step':'monthly'},
-	'year_RX5':{'unit':'mm','time_step':'yearly'},
-    'yield_maize':{'unit':'t ha-1 yr-1','time_step':'yearly'}
+    'yield_maize':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'yield_wheat':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'yield_soy':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'yield_rice':{'unit':'t ha-1 yr-1','time_step':'yearly'},
 }
 
 # names of indicators
 indicator_dict={'fr':{
-	'tas':'température',
-    'yield_maize':'rendement'
+    'yield_maize':'rendement du maïs',
+    'yield_wheat':'rendement du blé',
+    'yield_soy':'rendement du soja',
+    'yield_rice':'rendement du riz',
 	},
 	'en':{
-	'tas':'temperature',
-    'yield_maize':'maize yield'
+    'yield_maize':'maize yield',
+    'yield_wheat':'wheat yield',
+    'yield_soy':'soy yield',
+    'yield_rice':'rice yield',
 	}
 }
 
-
-# a small dict stating which months are included in a season
-seasons={'year':range(1,13)}
-for i in range(1,13):
-	seasons[str(i)]=[i]
-
-# dict for season names
-season_dict={'fr':{
-	'year':'** Annuel **',
-	'1':'Janvier',
-	'2':'Février',
-	'3':'Mars',
-	'4':'Avril',
-	'5':'Mai',
-	'6':'Juin',
-	'7':'Juillet',
-	'8':'Août',
-	'9':'Septembre',
-	'10':'Octobre',
-	'11':'Novembre',
-	'12':'Décembre',
+# names of management practices
+management_dict={'fr':{
+    'all':'pluviale et irriguée',
+    'noirr':'pluviale',
+    'firr':'irriguée',
 	},
 	'en':{
-	'year':'** Annual **',
-	'1':'January',
-	'2':'Febuary',
-	'3':'March',
-	'4':'April',
-	'5':'Mai',
-	'6':'June',
-	'7':'July',
-	'8':'August',
-	'9':'September',
-	'10':'October',
-	'11':'November',
-	'12':'December',
+    'all':'rainfed and irrigated',
+    'noirr':'rainfed',
+    'firr':'irrigated',
 	}
 }
+
 
 # some french and english dictionaries
 # there might be smoother way to deal with translations
@@ -117,15 +94,11 @@ form_labels={'fr':{
 	'region':u'Région administrative:',
 	'scenario':u"Scénario d'émission:",
 	'indicator':u'Indicateur climatique:',
-	'period':u'Période de projection:',
-	'season':u'Saison:',
 	},'en':{
 	'country':u'Studied country:',
 	'region':u'Administrative region:',
-	'scenario':u'Emission scenraio:',
+	'scenario':u'Emission scenario:',
 	'indicator':u'Climate indicator:',
-	'period':u'Projection period:',
-	'season':u'Season:',
 	}
 
 }
@@ -260,7 +233,7 @@ warming_lvl_dict={'en':{
 	'1p5':'+1.5°C',
 	'2p0':'+2.0°C',
     '2p5':'+2.5°C',
-    '3p0':'+3.0°C',    
+    '3p0':'+3.0°C',
 }
 }
 
