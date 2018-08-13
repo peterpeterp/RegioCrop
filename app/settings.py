@@ -53,24 +53,24 @@ result=pd.read_csv('app/static/data/isimip_cropimpact_warmlevel_deltaval.csv',se
 
 # indicators, units, timesteps
 ind_dict={
-    'yield_maize':{'unit':'t ha-1 yr-1','time_step':'yearly'},
-    'yield_wheat':{'unit':'t ha-1 yr-1','time_step':'yearly'},
-    'yield_soy':{'unit':'t ha-1 yr-1','time_step':'yearly'},
-    'yield_rice':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'maize':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'wheat':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'soy':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'rice':{'unit':'t ha-1 yr-1','time_step':'yearly'},
 }
 
 # names of indicators
 indicator_dict={'fr':{
-    'yield_maize':'rendement du maïs',
-    'yield_wheat':'rendement du blé',
-    'yield_soy':'rendement du soja',
-    'yield_rice':'rendement du riz',
+    'maize':'rendement du maïs',
+    'wheat':'rendement du blé',
+    'soy':'rendement du soja',
+    'rice':'rendement du riz',
 	},
 	'en':{
-    'yield_maize':'maize yield',
-    'yield_wheat':'wheat yield',
-    'yield_soy':'soy yield',
-    'yield_rice':'rice yield',
+    'maize':'maize yield',
+    'wheat':'wheat yield',
+    'soy':'soy yield',
+    'rice':'rice yield',
 	}
 }
 

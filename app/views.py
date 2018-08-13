@@ -29,8 +29,6 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 rc('text', usetex=True)
 
-import pycountry
-
 import forms
 
 import settings
@@ -41,9 +39,7 @@ text_dict=settings.text_dict
 button_dict=settings.button_dict
 warming_lvl_dict=settings.warming_lvl_dict
 management_dict=settings.management_dict
-languages={'en':'English','fr':'Français'}
-
-result=settings.result
+languages={'en':'English'}
 
 # # not used, but could be useful
 # def flash_errors(form):
@@ -74,8 +70,8 @@ def index():
     session['country']   = session["country_avail"][0]
     session['country']   = 'AGO'
 
-    session["indicator_avail"]   = ['yield_maize','yield_wheat','yield_soy','yield_rice']
-    session["indicator"]   = 'yield_maize'
+    session["indicator_avail"]   = ['maize','wheat','soy','rice']
+    session["indicator"]   = 'maize'
     index=session['indicator_avail'].index(session['indicator'])
     session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
 
@@ -83,11 +79,6 @@ def index():
     session["warming_lvl"]   = '1p5'
     index=session['warming_lvl_avail'].index(session['warming_lvl'])
     session['warming_lvl_avail'][index],session['warming_lvl_avail'][0]=session['warming_lvl_avail'][0],session['warming_lvl_avail'][index]
-
-    session["management_avail"]   = ['all','firr','noirr']
-    session["management"]   = 'all'
-    index=session['management_avail'].index(session['management'])
-    session['management_avail'][index],session['management_avail'][0]=session['management_avail'][0],session['management_avail'][index]
 
 
     session['location']='index'
@@ -127,26 +118,20 @@ def choices():
         s['management_avail']=[s['management']]+[mgmt for mgmt in s['management_avail'] if mgmt != s['management']]
         form_management.managements.choices = zip(s['management_avail'],[management_dict[lang][mgmt][0].upper()+management_dict[lang][mgmt][1:] for mgmt in s['management_avail']])
 
-        # prepare result snippet
-        result_table=result.loc[(result['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
-
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
         context={
-            'hist_map':'static/plots_maps/'+s['country']+'_co2_'+s['management']+'_hist.png',
-            'proj_co2_map':'static/plots_maps/'+s['country']+'_co2_'+s['management']+'_'+s['warming_lvl']+'.png',
-            'proj_noco2_map':'static/plots_maps/'+s['country']+'_noco2_'+s['management']+'_'+s['warming_lvl']+'.png',
-            'proj_co2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_co2_'+settings.country_names[s['country']]['en']+'.png',
-            'proj_noco2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_noco2_'+settings.country_names[s['country']]['en']+'.png',
+            'hist_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_hist.png',
+            'proj_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_'+s['warming_lvl']+'.png',
+            'irr_added_value_map':'static/plots_maps/'+s['country']+'_irr-added-value_'+s['warming_lvl']+'.png',
+    #        'proj_co2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_co2_'+settings.country_names[s['country']]['en']+'.png',
+    #        'proj_noco2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_noco2_'+settings.country_names[s['country']]['en']+'.png',
 
             'form_country':form_country,
             'form_indicator':form_indicator,
             'form_warming_lvl':form_warming_lvl,
             'form_management':form_management,
-
-            'result_table':result_table.round(2),
-            'crops':set(result_table['Crop']),
 
             'indicator':indicator_dict[lang][s['indicator']],
         }

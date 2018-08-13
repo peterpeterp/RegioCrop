@@ -40,7 +40,7 @@ class warming_lvlForm(Form):
 
 class managementForm(Form):
   managements = SelectField(u'', choices=[],
-            validators=[Required("Please select at least one type of management practices.")])            
+            validators=[Required("Please select at least one type of management practices.")])
 
 class PeriodField(Form):
   regex = "[1-2][0-9]{3}-[1-2][0-9]{3}"
