@@ -24,7 +24,7 @@
 
 import sys,glob,os,pickle,string
 import numpy as np
-from netCDF4 import Dataset,netcdftime,num2date
+from netCDF4 import Dataset,num2date
 import pandas as pd
 import pycountry
 
@@ -46,6 +46,9 @@ country_names={}
 for iso in all_isos:
 	if os.path.isdir('app/static/COU_images/'+iso)==False:os.system('mkdir app/static/COU_images/'+iso)
 	country_names[iso]={'en':pycountry.countries.get(alpha_3=iso).name,'fr':french_cou_dict[iso]}
+
+# read result table
+result=pd.read_csv('app/static/data/isimip_cropimpact_warmlevel_deltaval.csv',sep=';')
 
 
 # indicators, units, timesteps

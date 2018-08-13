@@ -41,6 +41,8 @@ warming_lvl_dict=settings.warming_lvl_dict
 management_dict=settings.management_dict
 languages={'en':'English','fr':'Français'}
 
+result=settings.result
+
 # # not used, but could be useful
 # def flash_errors(form):
 #     for field, errors in form.errors.items():
@@ -123,6 +125,9 @@ def choices():
         s['management_avail']=[s['management']]+[mgmt for mgmt in s['management_avail'] if mgmt != s['management']]
         form_management.managements.choices = zip(s['management_avail'],[management_dict[lang][mgmt][0].upper()+management_dict[lang][mgmt][1:] for mgmt in s['management_avail']])
 
+        # prepare result snippet
+        result_table=result.loc[(result['Country']=='Benin') & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
+
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
@@ -137,6 +142,9 @@ def choices():
             'form_indicator':form_indicator,
             'form_warming_lvl':form_warming_lvl,
             'form_management':form_management,
+
+            'result_table':result_table.round(2),
+            'crops':set(result_table['Crop']),
 
             'indicator':indicator_dict[lang][s['indicator']],
         }

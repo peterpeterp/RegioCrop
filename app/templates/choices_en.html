@@ -56,33 +56,31 @@
       </figure>
   </div>
   <!-- right top plot -->
-  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
-      <figure>
-        <IMG SRC={{ proj_noco2_map }} ALT='{{ proj_noco2_map }}' WIDTH=100%></IMG>
-      </figure>
+  <div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%;">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Crop </td> <td>Area [ha]</td> <td>1p0</td> <td>1p5</td> <td>2</td> <td>2p5</td> <td>3</td>
+        </tr>
+        {% for crop in crops %}
+          <tr>
+            <td>{{crop}}</td>
+            <td>{{result_table.loc[(result_table['Warming']=='1p5')].loc[(result_table['Crop']== crop)].iloc[0,3]}}</td>
+            {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
+              <td>{{ result_table.loc[(result_table['Warming']== wlvl)].loc[(result_table['Crop']== crop)].iloc[0,9] }}
+                [{{ result_table.loc[(result_table['Warming']== wlvl)].loc[(result_table['Crop']== crop)].iloc[0,8] }} to {{ result_table.loc[(result_table['Warming']== wlvl)].loc[(result_table['Crop']== crop)].iloc[0,11] }}]
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
   </div>
-  <p>Projected change in crop yield for +2.0°C above preindustrial compared to the reference period 1986-2005.
-     Here the ensemble median of global gridded crop model projections is displayed.
-     Grid-cells for which a model-disagreement is found are coloured in grey.
-     Grid-cell where the crop is not harvested are displayed in white.</p>
+
 </div>
 
-<div id="LeftPanel" style="width: 74%; height: 100%; float: left; padding-left: 2%;">
-  <!-- left bottom plot -->
-  <div id="LeftPanel" style="width: 50%; height: 100%; float: left;">
-      <figure>
-        <IMG SRC={{ proj_co2_boxplot }} ALT=' ' WIDTH=100%></IMG>
-      </figure>
-  </div>
-  <!-- right bottom plot -->
-  <div id="LeftPanel" style="width: 50%; height: 100%; float: left;">
-      <figure>
-        <IMG SRC={{ proj_noco2_boxplot }} ALT=' ' WIDTH=100%></IMG>
-      </figure>
-  </div>
-  <p>Relative changes in national rainfed yield for different future warming level
-  compared to the reference period 1986-2005 (+0.61°C above preindustrial)
-  with CO2 effects.</p>
+
 </div>
 
 
