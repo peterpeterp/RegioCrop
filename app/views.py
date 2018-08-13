@@ -29,6 +29,8 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 rc('text', usetex=True)
 
+import pycountry
+
 import forms
 
 import settings
@@ -126,7 +128,7 @@ def choices():
         form_management.managements.choices = zip(s['management_avail'],[management_dict[lang][mgmt][0].upper()+management_dict[lang][mgmt][1:] for mgmt in s['management_avail']])
 
         # prepare result snippet
-        result_table=result.loc[(result['Country']=='Benin') & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
+        result_table=result.loc[(result['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
 
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
