@@ -38,7 +38,6 @@ form_labels=settings.form_labels
 text_dict=settings.text_dict
 button_dict=settings.button_dict
 warming_lvl_dict=settings.warming_lvl_dict
-management_dict=settings.management_dict
 languages={'en':'English'}
 
 # # not used, but could be useful
