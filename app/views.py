@@ -113,11 +113,6 @@ def choices():
         s['warming_lvl_avail']=[s['warming_lvl']]+[wlvl for wlvl in s['warming_lvl_avail'] if wlvl != s['warming_lvl']]
         form_warming_lvl.warming_lvls.choices = zip(s['warming_lvl_avail'],[warming_lvl_dict[lang][wlvl][0].upper()+warming_lvl_dict[lang][wlvl][1:] for wlvl in s['warming_lvl_avail']])
 
-        # fill the form for the choice ofthe agricultural management practice
-        form_management = forms.managementForm(request.form)
-        s['management_avail']=[s['management']]+[mgmt for mgmt in s['management_avail'] if mgmt != s['management']]
-        form_management.managements.choices = zip(s['management_avail'],[management_dict[lang][mgmt][0].upper()+management_dict[lang][mgmt][1:] for mgmt in s['management_avail']])
-
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
@@ -131,7 +126,6 @@ def choices():
             'form_country':form_country,
             'form_indicator':form_indicator,
             'form_warming_lvl':form_warming_lvl,
-            'form_management':form_management,
 
             'indicator':indicator_dict[lang][s['indicator']],
         }
@@ -171,13 +165,6 @@ def indicator_choice():
 def warming_lvl_choice():
   form_warming_lvl = forms.warming_lvlForm(request.form)
   session['warming_lvl']=form_warming_lvl.warming_lvls.data
-
-  return redirect(url_for('choices'))
-
-@app.route('/management_choice',  methods=('POST', ))
-def management_choice():
-  form_management = forms.managementForm(request.form)
-  session['management']=form_management.managements.data
 
   return redirect(url_for('choices'))
 
