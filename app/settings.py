@@ -134,32 +134,20 @@ text_dict={'en':{
 	'merge_page_txt':'Select a region you want to add to the chosen region.',
 	'warning_merge_page_txt':'The chosen region is smaller than 5 grid-cells. Please select another region you want to merge the current region with.',
 
-	'season_page_h':'Add another month',
-	'season_page_txt':'Select a month that will be added to the season',
-
-	'region_h':'Administrative Region',
-	'region_txt':'Region for which the transient and annual cycle is presented. You can also ',
-
 	'warming_lvl_h':'Global Warming Level',
 	'warming_lvl_txt_1':'Global warming level above pre-industrial for which the regional response is presented. Alternatively you can use ',
 	'warming_lvl_txt_2':'',
 	'future_warming_lvl':'Future warming level',
 	'ref_warming_lvl':'Reference warming level',
 
-	'period_h':'Projection Period',
-	'period_txt_1':'Time period for which projections are shown. Alternatively you can select ',
-	'period_txt_2':'  for which the regional climate response will be displayed',
-
 	'indicator_h':'Climate Indicator',
 	'indicator_txt':'Climate indicators based on daily temperature and precipitation. Please find more information about the indicators ',
 
-	'time_scale_h':'Time Scale',
-	'time_scale_txt':'Select annual or monthly time scale or ',
-
-	'ref_period':'Reference Period',
-	'proj_period':'Projection Period',
-
 },'fr':{
+
+	'country_h':'Pays',
+	'country_txt':'',
+
 	'warning':'Avertissement!',
 	'warning_txt':'La région choisie est plus petite que 5 grilles. Veuillez ',
 	'reduced_inidicator_set_txt':"La région choisie est plus petite que 5 grilles. Nous ne fournissons pas d'indicateurs climatiques extrêmes pour cette région!",
@@ -168,33 +156,14 @@ text_dict={'en':{
 	'merge_page_txt':'Choisissez une région qui sera combiné avec la région actuelle.',
 	'warning_merge_page_txt':'La région choisie est plus petite que 5 grilles. Veuillez choisir une autre région à combiner avec la région actuelle.',
 
-	'season_page_h':'Ajoutez un mois',
-	'season_page_txt':'Choisissez un mois qui sera ajouté à la saison',
-
-	'region_h':'Région administrative',
-	'region_txt':'Région pour laquelle le trajectoire et le cycle annuel sont présentés. Vous pouvet aussi ',
-
 	'warming_lvl_h':'Niveau de Réchauffement Global',
 	'warming_lvl_txt_1':'Niveau de Réchauffement Global pour lequel la réponse climatique régionale est présentée. Vous pouvez aussi utiliser des ',
 	'warming_lvl_txt_2':' pour lesquelles les projections climatiques seront projetées.',
 	'future_warming_lvl':'Niveau de réchauffement future',
 	'ref_warming_lvl':'Niveau de réchauffement de référence',
 
-	'period_h':'Période de Projection',
-	'period_txt_1':'Périodes pour lesquelles les projections sont présentées. Comme les projections climatiques dépendent sur les scénarios d´émission, nous recommandons d´utiliser un ',
-	'period_txt_2':' pour lequel la réponse climatique régionale va être présentée.',
-
-	'country_h':'Pays',
-	'country_txt':'Pour le moment seulement le Bénin et le Sénégal peuvent être sélectionné. La liste des pays sera bientôt élargie.',
-
 	'indicator_h':'Indicateur Climatique',
 	'indicator_txt':'Indicateurs climatiques basés sur des donnés quotidiennes de température et de précipitation. Pour le moment aucun indicateur de sécheresse est présenté. Veuillez considérer les projection de précipitation pour les analyses de sécheresses en gardant à l`esprit que l`évapotranspiration potentielle pourrait augmenter avec la température.',
-
-	'time_scale_h':'Échelle temporelle',
-	'time_scale_txt':'Les tendances projetés peuvent fortement dépendre de la saison. Veuillez choisir le mois le plus pertinent pour votre analyse ou ',
-
-	'ref_period':'Période de Référence',
-	'proj_period':'Période de Projection',
 
 }
 }
@@ -239,8 +208,6 @@ warming_lvl_dict={'en':{
     '3p0':'+3.0°C',
 }
 }
-
-above_preindustrial={'en':'above preindustrial','fr':'au-dessus des niveaux préindustriels'}
 
 
 print 'done with settings'

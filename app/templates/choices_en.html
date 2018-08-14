@@ -32,9 +32,11 @@
 
 
 <!-- right part of the website -->
+<!-- check if the id is right here!!! -->
 <div id="LeftPanel" style="width: 74%; height: 100%; float: left; padding-left: 2%;">
   <h3>Regional climate model projections vizualized for the country scale </h3>
   <p>Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> or <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high resolution graphics.
+
   <!-- left top plot -->
   <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
       <figure>
@@ -44,18 +46,27 @@
         This map is based on the ISIMIP phase 1 dataset.
         Data are shown for present-day irrigated and rainfed harvested areas.</p>
   </div>
+
   <!-- middle top plot -->
   <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
       <figure>
-        <IMG SRC={{ proj_co2_map }} ALT={{ proj_co2_map }} WIDTH=100%></IMG>
+        <IMG SRC={{ proj_map }} ALT={{ proj_map }} WIDTH=100%></IMG>
       </figure>
   </div>
+
   <!-- right top plot -->
+  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
+      <figure>
+        <IMG SRC={{ irr_added_value_map }} ALT={{ irr_added_value_map }} WIDTH=100%></IMG>
+      </figure>
+  </div>
+
+  <!-- table at the bottom -->
   <div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%;">
     <table class="table">
       <tbody>
         <tr>
-          <td>Crop </td> <td>Area [ha]</td> <td>1p0</td> <td>1p5</td> <td>2</td> <td>2p5</td> <td>3</td>
+          <td>Crop </td> <td>Area [ha]</td> <td>+1.0°C</td> <td>+1.5°C</td> <td>+2°C</td> <td>+2.5°C</td> <td>+3.0°C</td>
         </tr>
         {% for crop in crops %}
           <tr>
@@ -80,8 +91,6 @@
 
 
 </div>
-
-
 
 
 {% endblock %}

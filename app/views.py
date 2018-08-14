@@ -118,7 +118,7 @@ def choices():
         context={
             'hist_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_hist.png',
             'proj_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_'+s['warming_lvl']+'.png',
-            'irr_added_value_map':'static/plots_maps/'+s['country']+'_irr-added-value_'+s['warming_lvl']+'.png',
+            'irr_added_value_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_irr-added-value_'+s['warming_lvl']+'.png',
     #        'proj_co2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_co2_'+settings.country_names[s['country']]['en']+'.png',
     #        'proj_noco2_boxplot':'static/plots_boxplot/'+'plot_delta_yield_actual_noco2_'+settings.country_names[s['country']]['en']+'.png',
 
