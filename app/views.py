@@ -66,7 +66,7 @@ def index():
     session['country']   = session["country_avail"][0]
     session['country']   = 'AGO'
 
-    session["indicator_avail"]   = list(set(result.loc[(result['Country']==pycountry.countries.get(alpha_3=session['country']).name)]['Crop']))
+    session["indicator_avail"] = list(set([filename.split('/')[-1].split('_')[1] for filename in glob.glob('app/static/plots_maps/'+session['country']+'*')]))
     session["indicator"]   = session["indicator_avail"][0]
     index=session['indicator_avail'].index(session['indicator'])
     session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
@@ -152,7 +152,7 @@ def choices():
 def country_choice():
   form_country = forms.countryForm(request.form)
   session['country']=form_country.countrys.data
-  session['indicator_avail']=list(set(result.loc[(result['Country']==pycountry.countries.get(alpha_3=session['country']).name)]['Crop']))
+  session["indicator_avail"] = list(set([filename.split('/')[-1].split('_')[1] for filename in glob.glob('app/static/plots_maps/'+session['country']+'*')]))
 
   return redirect(url_for('choices'))
 
