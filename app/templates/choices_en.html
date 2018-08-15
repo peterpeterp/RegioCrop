@@ -5,43 +5,51 @@
 
 
 <!-- This is the left gray column -->
-<div id="LeftPanel" style="width: 20%; padding-left: 2%; padding-right: 2%; height: 100%; float: left; background: rgba(170,170,170,0.5);">
+<div id="LeftPanel" style="width: 100%; padding-left: 2%; padding-right: 2%; height: 100%; float: left; background: rgba(170,170,170,0.5);">
+  <h2>Crop yield projections from ISIMIP??</h2>
+  <p>Some explanatory text ... Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> or <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high resolution graphics.</p>
   <!-- country choice -->
+  <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/country_choice" id="country_id">
     <h3>Country</h3>
     {{ form_country.countrys(onchange='change_something("country_id");') }}
+    <br>
+    <a class="label label-primary" href="/download_data" target="_blank"  style="margin-right: 5px;">Download table</a>
   </form>
+  </div>
 
   <!-- indicator choice  -->
+  <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/indicator_choice" id="indicator_id">
-    <h3>Climate Indicator <a href="documentation#doc_indicators"><IMG SRC='static/images/question-mark-button.png' ALT=' ' WIDTH=12 HEIGHT=12></IMG></a></h3>
+    <h3>Crop </h3>
     {% if small_region_warning==True %}
       <p class=warn_txt><b>Warning: </b>{{ reduced_inidicator_set_txt }}</p>
     {% endif %}
     {{ form_indicator.indicators(onchange='change_something("indicator_id");') }}
-    <a class="label label-primary" href="/prepare_for_download/get_data**bla" target="_blank"  style="margin-right: 5px;">{{download_data }}</a>
   </form>
+  </div>
 
   <!-- warming level choice  -->
+  <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/warming_lvl_choice" id="warming_lvl_id">
     <h3>Warming level</h3>
     {{ form_warming_lvl.warming_lvls(onchange='change_something("warming_lvl_id");') }}
   </form>
+  </div>
 
 </div>
 
 
 <!-- right part of the website -->
 <!-- check if the id is right here!!! -->
-<div id="LeftPanel" style="width: 74%; height: 100%; float: left; padding-left: 2%;">
-  <h3>Regional climate model projections vizualized for the country scale </h3>
-  <p>Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> or <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high resolution graphics.
+<div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%;">
 
   <!-- left top plot -->
   <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
       <figure>
         <IMG SRC={{ hist_map }} ALT='{{ hist_map }}' WIDTH=100%></IMG>
       </figure>
+      <a class="label label-primary" href={{"/download_plot/"+hist_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">png</a>
       <p>Simulated crop yield for the reference period 1986-2005 (+0.61°C above preindustrial) (ensemble median).
         This map is based on the ISIMIP phase 1 dataset.
         Data are shown for present-day irrigated and rainfed harvested areas.</p>
@@ -52,6 +60,7 @@
       <figure>
         <IMG SRC={{ proj_map }} ALT={{ proj_map }} WIDTH=100%></IMG>
       </figure>
+      <a class="label label-primary" href={{"/download_plot/"+proj_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">png</a>
   </div>
 
   <!-- right top plot -->
@@ -59,33 +68,35 @@
       <figure>
         <IMG SRC={{ irr_added_value_map }} ALT={{ irr_added_value_map }} WIDTH=100%></IMG>
       </figure>
+      <a class="label label-primary" href={{"/download_plot/"+irr_added_value_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">png</a>
   </div>
-
-  <!-- table at the bottom -->
-  <div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%;">
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>Crop </td> <td>Area [ha]</td> <td>+1.0°C</td> <td>+1.5°C</td> <td>+2°C</td> <td>+2.5°C</td> <td>+3.0°C</td>
-        </tr>
-        {% for crop in crops %}
-          <tr>
-            <td>{{crop}}</td>
-            <td>{{result_table.loc[(result_table['Warming']=='1p5')].loc[(result_table['Crop']== crop)].iloc[0,3]}}</td>
-            {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
-              <td>{{ result_table.loc[(result_table['Warming']== wlvl)].loc[(result_table['Crop']== crop)].iloc[0,9] }}
-                [{{ result_table.loc[(result_table['Warming']== wlvl)].loc[(result_table['Crop']== crop)].iloc[0,8] }} to {{ result_table.loc[(result_table['Warming']== wlvl)].loc[(result_table['Crop']== crop)].iloc[0,11] }}]
-              </td>
-            {% endfor %}
-          </tr>
-        {% endfor %}
-
-      </tbody>
-    </table>
-  </div>
-
 </div>
 
+<!-- table at the bottom -->
+<div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%; padding-top: 40pt;">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Crop </th> <th>Cultivated area [ha]</th> <th colspan="5"><div align="center">Change in crop yield [unit?] </div></th>
+      </tr>
+      <tr>
+        <td>  </td> <td> </td> <td>+1.0°C</td> <td>+1.5°C</td> <td>+2°C</td> <td>+2.5°C</td> <td>+3.0°C</td>
+      </tr>
+      {% for crop in crops %}
+        <tr>
+          <td>{{crop}}</td>
+          <td>{{result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
+          {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
+            <td>{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
+              [{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,8] }} to {{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,11] }}]
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>
 
 </div>
 

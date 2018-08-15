@@ -18,16 +18,13 @@
 # along with regioclim; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import os,glob,sys,time,random,cPickle,string
+import os,glob,sys,time
 from app import app
 from flask import redirect, render_template, url_for, request, flash, get_flashed_messages, g, session, jsonify, Flask, send_from_directory
-from collections import OrderedDict
 from werkzeug.routing import BuildError
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib import rc
-rc('text', usetex=True)
+import pandas as pd
+import pycountry
+
 
 import forms
 
@@ -35,10 +32,10 @@ import settings
 ind_dict=settings.ind_dict
 indicator_dict=settings.indicator_dict
 form_labels=settings.form_labels
-text_dict=settings.text_dict
-button_dict=settings.button_dict
 warming_lvl_dict=settings.warming_lvl_dict
 languages={'en':'English'}
+
+result=settings.result
 
 # # not used, but could be useful
 # def flash_errors(form):
@@ -69,8 +66,8 @@ def index():
     session['country']   = session["country_avail"][0]
     session['country']   = 'AGO'
 
-    session["indicator_avail"]   = ['maize','wheat','soy','rice']
-    session["indicator"]   = 'maize'
+    session["indicator_avail"]   = list(set(result.loc[(result['Country']==pycountry.countries.get(alpha_3=session['country']).name)]['Crop']))
+    session["indicator"]   = session["indicator_avail"][0]
     index=session['indicator_avail'].index(session['indicator'])
     session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
 
@@ -112,6 +109,8 @@ def choices():
         s['warming_lvl_avail']=[s['warming_lvl']]+[wlvl for wlvl in s['warming_lvl_avail'] if wlvl != s['warming_lvl']]
         form_warming_lvl.warming_lvls.choices = zip(s['warming_lvl_avail'],[warming_lvl_dict[lang][wlvl][0].upper()+warming_lvl_dict[lang][wlvl][1:] for wlvl in s['warming_lvl_avail']])
 
+        result_snippet=result.loc[(result['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
+
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
@@ -125,6 +124,9 @@ def choices():
             'form_country':form_country,
             'form_indicator':form_indicator,
             'form_warming_lvl':form_warming_lvl,
+
+            'result_snippet':result_snippet.round(2),
+            'crops':s['indicator_avail'],
 
             'indicator':indicator_dict[lang][s['indicator']],
         }
@@ -150,6 +152,7 @@ def choices():
 def country_choice():
   form_country = forms.countryForm(request.form)
   session['country']=form_country.countrys.data
+  session['indicator_avail']=list(set(result.loc[(result['Country']==pycountry.countries.get(alpha_3=session['country']).name)]['Crop']))
 
   return redirect(url_for('choices'))
 
@@ -208,6 +211,18 @@ def render_contact():
 def documentation():
   session['location']='documentation'
   return render_template('documentation_'+session['language']+'.html',language=get_language_tag())
+
+@app.route('/download_plot/<request>',  methods=('GET',"POST", ))
+def download_plot(request):
+  print request
+  return send_from_directory(directory='static/plots_maps/', filename=request,as_attachment=True)
+
+@app.route('/download_data',  methods=('GET',"POST", ))
+def download_data():
+  print request
+  result_snippet=result.loc[(result['Country']==pycountry.countries.get(alpha_3=session['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
+  result_snippet.to_csv('app/static/data/'+session['country']+'.csv',sep=';')
+  return send_from_directory(directory='static/data/', filename=session['country']+'.csv',as_attachment=True)
 
 
 # @app.route('/user_type_choice',  methods=('POST', ))
