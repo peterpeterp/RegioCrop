@@ -52,7 +52,7 @@ for iso in all_isos:
 result=pd.read_csv('app/static/data/isimip_cropimpact_warmlevel_deltaval.csv',sep=';')
 
 
-# indicators, units, timesteps
+# indicators, units, timesteps, long names
 ind_dict={
     'maize':{'unit':'t ha-1 yr-1','time_step':'yearly'},
     'wheat':{'unit':'t ha-1 yr-1','time_step':'yearly'},
@@ -72,19 +72,6 @@ indicator_dict={'fr':{
     'wheat':'wheat yield',
     'soybean':'soy yield',
     'rice':'rice yield',
-	}
-}
-
-# names of management practices
-management_dict={'fr':{
-    'all':'pluviale et irriguée',
-    'noirr':'pluviale',
-    'firr':'irriguée',
-	},
-	'en':{
-    'all':'rainfed and irrigated',
-    'noirr':'rainfed',
-    'firr':'irrigated',
 	}
 }
 

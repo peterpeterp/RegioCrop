@@ -6,12 +6,16 @@
 
 <!-- This is the gray bar -->
 <div id="LeftPanel" style="width: 100%; padding-left: 2%; padding-right: 2%; height: 100%; float: left; background: rgba(170,170,170,0.5);">
-  <h2>Crop yield projections from <a href="https://www.isimip.org" target="_blank">ISIMIP</a> </h2>
-  <p>Some explanatory text ... Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> or <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high resolution graphics.</p>
+  <h2>Crop Yield Impact Projections </h2>
+  <p>These projections are computed from the <a href="https://www.isimip.org/protocol/#isimip-fast-track" target="_blank">ISIMIP Fast-Track archive</a>
+    based on six global gridded crop models driven by five global climate models from <a href="https://cmip.llnl.gov/cmip5/" target="_blank">CMIP5</a>
+    following RCP8.5.</p>
+  <p>Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> to download high-resolution graphics.</p>
+
   <!-- country choice -->
   <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/country_choice" id="country_id">
-    <h3>Country</h3>
+    <h3>Select a Country</h3>
     {{ form_country.countrys(onchange='change_something("country_id");') }}
     <br>
   </form>
@@ -20,7 +24,7 @@
   <!-- indicator choice  -->
   <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/indicator_choice" id="indicator_id">
-    <h3>Crop </h3>
+    <h3>Select a Crop </h3>
     {% if small_region_warning==True %}
       <p class=warn_txt><b>Warning: </b>{{ reduced_inidicator_set_txt }}</p>
     {% endif %}
@@ -31,7 +35,7 @@
   <!-- warming level choice  -->
   <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/warming_lvl_choice" id="warming_lvl_id">
-    <h3>Warming level</h3>
+    <h3>Select a Warming Level</h3>
     {{ form_warming_lvl.warming_lvls(onchange='change_something("warming_lvl_id");') }}
   </form>
   </div>
@@ -39,7 +43,7 @@
 </div>
 
 
-<!-- right part of the website -->
+<!-- bottom part of the website -->
 <!-- check if the id is right here!!! -->
 <div id="LeftPanel" style="width: 100%; float: left;">
 
@@ -49,9 +53,8 @@
         <IMG SRC={{ hist_map }} ALT='{{ hist_map }}' WIDTH=100%></IMG>
       </figure>
       <a class="label label-primary" href={{"/download_plot/"+hist_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">png</a>
-      <p>Simulated crop yield for the reference period 1986-2005 (+0.61°C above preindustrial) (ensemble median).
-        This map is based on the ISIMIP phase 1 dataset.
-        Data are shown for present-day irrigated and rainfed harvested areas.</p>
+      <p style="width: 230pt; text-align:justify;"><strong>Simulated crop yield (t/ha/yr) circa year 2000</strong> (+0.61°C above preindustrial).
+        Data are shown for combined present-day irrigated and rainfed harvested areas.</p>
   </div>
 
   <!-- middle top plot -->
@@ -60,6 +63,9 @@
         <IMG SRC={{ proj_map }} ALT={{ proj_map }} WIDTH=100%></IMG>
       </figure>
       <a class="label label-primary" href={{"/download_plot/"+proj_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">png</a>
+      <p style="width: 230pt; text-align:justify;"><strong>Projected change in yield (%) relative to 2000</strong> (multi-model ensemble median).
+        Yellow areas show small level of impacts (range [-5;5%]).
+        For larger level of impacts, grid cells where the models do not agree in the sign of change are shown in grey.</p>
   </div>
 
   <!-- right top plot -->
@@ -68,6 +74,8 @@
         <IMG SRC={{ irr_added_value_map }} ALT={{ irr_added_value_map }} WIDTH=100%></IMG>
       </figure>
       <a class="label label-primary" href={{"/download_plot/"+irr_added_value_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">png</a>
+      <p style="width: 230pt; text-align:justify;"><strong>Relative increase in yield (%) if irrigation is applied on rainfed harvested areas</strong>,
+      assuming no water limitation (note this does not account for actual irrigated water availability).</p>
   </div>
 </div>
 
@@ -76,26 +84,27 @@
   <table class="table">
     <tbody>
       <tr>
-        <th>Crop </th> <th>Cultivated area [ha]</th> <th colspan="5"><div align="center">Change in crop yield [%] </div></th>
+        <th>Crop </th> <th>Harvested area (ha) circa 2000</th> <th colspan="5"><div align="center">Change in national average yield (%) relative to year 2000 </div></th>
       </tr>
       <tr>
-        <td>  </td> <td> </td> <td>+1.0°C</td> <td>+1.5°C</td> <td>+2°C</td> <td>+2.5°C</td> <td>+3.0°C</td>
+        <td>  </td> <td> </td> <td style="text-align:center;">+1.0°C</td> <td style="text-align:center;">+1.5°C</td> <td style="text-align:center;">+2°C</td> <td style="text-align:center;">+2.5°C</td> <td style="text-align:center;">+3.0°C</td>
       </tr>
       {% for crop in crops %}
         <tr>
-          <td>{{crop}}</td>
-          <td>{{result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
+          <td style="text-align:center;">{{crop}}</td>
+          <td style="text-align:center;">{{result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
           {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
-            <td>{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
+            <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
               [{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,8] }} to {{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,11] }}]
             </td>
           {% endfor %}
         </tr>
       {% endfor %}
-
     </tbody>
   </table>
   <a class="label label-primary" href="/download_data" target="_blank"  style="margin-right: 5px;">Download table</a>
+  <p><strong>Projected changes in yields (%) relative to 2000</strong> (multi-model ensemble median) for each crop grown in the country at different waming levels.
+    Total national harvested areas areas (circa 2000) are given in ha. Numbers in brackets represent the first and third quartiles.</p>
 
 </div>
 
