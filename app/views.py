@@ -64,9 +64,13 @@ def index():
     # the following lines load lists of indicators, countries etc from settings and set the default parameters (SEN, tas etc.)
     session["country_avail"]   = sorted(settings.country_names.keys())
     session['country']   = session["country_avail"][0]
-    session['country']   = 'AGO'
+    session['country']   = 'BEN'
 
-    session["indicator_avail"] = list(set([filename.split('/')[-1].split('_')[1] for filename in glob.glob('app/static/plots_maps/'+session['country']+'*')]))
+    # for filename in glob.glob('app/static/plots_maps/'+session['country']+'*'):
+    #     print(filename)
+    #     print(filename.split('/')[-1].split('_')[1])
+
+    session["indicator_avail"] = list(set([filename.split('/')[-1].split('_')[1] for filename in glob.glob('app/static/plots_maps/'+session['country']+'*') if len(filename.split('/')[-1].split('_'))>1]))
     session["indicator"]   = session["indicator_avail"][0]
     index=session['indicator_avail'].index(session['indicator'])
     session['indicator_avail'][index],session['indicator_avail'][0]=session['indicator_avail'][0],session['indicator_avail'][index]
@@ -152,7 +156,8 @@ def choices():
 def country_choice():
   form_country = forms.countryForm(request.form)
   session['country']=form_country.countrys.data
-  session["indicator_avail"] = list(set([filename.split('/')[-1].split('_')[1] for filename in glob.glob('app/static/plots_maps/'+session['country']+'*')]))
+  session["indicator_avail"] = list(set([filename.split('/')[-1].split('_')[1] for filename in glob.glob('app/static/plots_maps/'+session['country']+'*') if len(filename.split('/')[-1].split('_'))>1]))
+  session["indicator"]   = session["indicator_avail"][0]
 
   return redirect(url_for('choices'))
 

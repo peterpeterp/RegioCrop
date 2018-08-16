@@ -4,9 +4,9 @@
 <div id="content">
 
 
-<!-- This is the left gray column -->
+<!-- This is the gray bar -->
 <div id="LeftPanel" style="width: 100%; padding-left: 2%; padding-right: 2%; height: 100%; float: left; background: rgba(170,170,170,0.5);">
-  <h2>Crop yield projections from ISIMIP??</h2>
+  <h2>Crop yield projections from <a href="https://www.isimip.org" target="_blank">ISIMIP</a> </h2>
   <p>Some explanatory text ... Click on <a class="label label-primary" tyle="margin-right: 5px;">png</a> or <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high resolution graphics.</p>
   <!-- country choice -->
   <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
@@ -41,10 +41,10 @@
 
 <!-- right part of the website -->
 <!-- check if the id is right here!!! -->
-<div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%;">
+<div id="LeftPanel" style="width: 100%; float: left;">
 
   <!-- left top plot -->
-  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
+  <div id="LeftPanel" style="width: 275pt; float: left;">
       <figure>
         <IMG SRC={{ hist_map }} ALT='{{ hist_map }}' WIDTH=100%></IMG>
       </figure>
@@ -55,7 +55,7 @@
   </div>
 
   <!-- middle top plot -->
-  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
+  <div id="LeftPanel" style="width: 275pt; float: left; ">
       <figure>
         <IMG SRC={{ proj_map }} ALT={{ proj_map }} WIDTH=100%></IMG>
       </figure>
@@ -63,7 +63,7 @@
   </div>
 
   <!-- right top plot -->
-  <div id="LeftPanel" style="width: 31%; height: 100%; float: left; padding-left: 2%;">
+  <div id="LeftPanel" style="width: 275pt; float: left; ">
       <figure>
         <IMG SRC={{ irr_added_value_map }} ALT={{ irr_added_value_map }} WIDTH=100%></IMG>
       </figure>
@@ -76,7 +76,7 @@
   <table class="table">
     <tbody>
       <tr>
-        <th>Crop </th> <th>Cultivated area [ha]</th> <th colspan="5"><div align="center">Change in crop yield [unit?] </div></th>
+        <th>Crop </th> <th>Cultivated area [ha]</th> <th colspan="5"><div align="center">Change in crop yield [%] </div></th>
       </tr>
       <tr>
         <td>  </td> <td> </td> <td>+1.0°C</td> <td>+1.5°C</td> <td>+2°C</td> <td>+2.5°C</td> <td>+3.0°C</td>
