@@ -50,13 +50,16 @@ for iso in all_isos:
 
 # read result table
 result=pd.read_csv('app/static/data/isimip_cropimpact_warmlevel_deltaval.csv',sep=';')
-
+result['Crop'][result['Crop']=='soy']='soybean'
+result['Country'][result['Country']=='Congo_DemRep']='Congo, The Democratic Republic of the'
+result['Country'][result['Country']=='Cote_d_Ivoire']="Côte d'Ivoire"
+result['Country']=[cou.replace('_',' ') for cou in result['Country']]
 
 # indicators, units, timesteps, long names
 ind_dict={
     'maize':{'unit':'t ha-1 yr-1','time_step':'yearly'},
     'wheat':{'unit':'t ha-1 yr-1','time_step':'yearly'},
-    'soy':{'unit':'t ha-1 yr-1','time_step':'yearly'},
+    'soybean':{'unit':'t ha-1 yr-1','time_step':'yearly'},
     'rice':{'unit':'t ha-1 yr-1','time_step':'yearly'},
 }
 

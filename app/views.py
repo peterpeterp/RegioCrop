@@ -113,6 +113,7 @@ def choices():
         s['warming_lvl_avail']=[s['warming_lvl']]+[wlvl for wlvl in s['warming_lvl_avail'] if wlvl != s['warming_lvl']]
         form_warming_lvl.warming_lvls.choices = zip(s['warming_lvl_avail'],[warming_lvl_dict[lang][wlvl][0].upper()+warming_lvl_dict[lang][wlvl][1:] for wlvl in s['warming_lvl_avail']])
 
+        # get country table snippet
         result_snippet=result.loc[(result['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
 
 
@@ -134,7 +135,6 @@ def choices():
 
             'indicator':indicator_dict[lang][s['indicator']],
         }
-
 
         session['location']='choices'
         return render_template('choices_'+lang+'.html',**context)
@@ -220,7 +220,7 @@ def documentation():
 @app.route('/download_plot/<request>',  methods=('GET',"POST", ))
 def download_plot(request):
   print request
-  return send_from_directory(directory='static/plots_maps/', filename=request,as_attachment=True)
+  return send_from_directory(directory='static/plots_maps/', filename=request.replace('png','pdf'),as_attachment=True)
 
 @app.route('/download_data',  methods=('GET',"POST", ))
 def download_data():
