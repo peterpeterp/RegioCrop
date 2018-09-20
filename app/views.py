@@ -118,10 +118,6 @@ def choices():
         result_snippet=result.loc[(result['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
 
         result_snippet_other=result_other.loc[(result_other['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result_other['Irrigation']=='actual') & (result_other['CO2']=='co2')]
-        set(result_snippet_other['Crop'])
-
-        print(result_snippet_other)
-
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
