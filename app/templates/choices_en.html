@@ -74,7 +74,7 @@
         <IMG SRC={{ irr_added_value_map }} ALT={{ irr_added_value_map }} WIDTH=100%></IMG>
       </figure>
       <a class="label label-primary" href={{"/download_plot/"+irr_added_value_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">pdf</a>
-      <p style="width: 230pt; text-align:justify;"><strong>Relative increase in yield (%) if irrigation is applied on rainfed harvested areas</strong>,
+      <p style="width: 230pt; text-align:justify;"><strong>Relative increase in yield (%) if irrigation is applied on present day rainfed harvested areas</strong>,
       assuming no water limitation (note this does not account for actual irrigated water availability).</p>
   </div>
 </div>
@@ -92,7 +92,7 @@
       {% for crop in crops %}
         <tr>
           <td style="text-align:center;">{{crop}}</td>
-          <td style="text-align:center;">{{result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
+          <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
           {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
             <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
               [{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,8] }} to {{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,11] }}]
@@ -105,7 +105,40 @@
   <a class="label label-primary" href="/download_data" target="_blank"  style="margin-right: 5px;">Download table</a>
   <p><strong>Projected changes in yields (%) relative to 2000</strong> (multi-model ensemble median) for each crop grown in the country at different waming levels.
     Total national harvested areas areas (circa 2000) are given in ha. Numbers in brackets represent the first and third quartiles.</p>
+</div>
 
+<div id="LeftPanel" style="width: 100%; height: 10pt; float: left; padding-left: 2%; padding-top: 10pt; background: rgba(170,170,170,0.8);">
+</div>
+
+<!-- additional table at the bottom -->
+<div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%; padding-top: 1%; padding-right: 2%; padding-bottom: 2%;">
+    <div id="LeftPanel" style="width: 40%; height: 100%; float: center; padding: 1%;  background: rgba(170,100,100,0.3); margin:0 auto;">
+      <h3 style="color: darkred;">Only two crop models contributed to the results of the following table.<br> These results are less robust than what is presented above!</h3>
+    </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Crop </th> <th>Harvested area (ha) circa 2000</th> <th colspan="5"><div align="center">Change in national average yield (%) relative to year 2000 </div></th>
+      </tr>
+      <tr>
+        <td>  </td> <td> </td> <td style="text-align:center;">+1.0°C</td> <td style="text-align:center;">+1.5°C</td> <td style="text-align:center;">+2°C</td> <td style="text-align:center;">+2.5°C</td> <td style="text-align:center;">+3.0°C</td>
+      </tr>
+      {% for crop in crops_other %}
+        <tr>
+          <td style="text-align:center;">{{crop}}</td>
+          <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']=='1p5')].loc[(result_snippet_other['Crop']== crop)].iloc[0,3]}}</td>
+          {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
+            <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,9] }}
+              [{{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,8] }} to {{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,11] }}]
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="label label-primary" href="/download_data_other" target="_blank"  style="margin-right: 5px;">Download table</a>
+  <p><strong>Projected changes in yields (%) relative to 2000</strong> (multi-model ensemble median) for each crop grown in the country at different waming levels.
+    Total national harvested areas areas (circa 2000) are given in ha. Numbers in brackets represent the first and third quartiles.</p>
 </div>
 
 </div>

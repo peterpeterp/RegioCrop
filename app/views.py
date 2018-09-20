@@ -36,6 +36,7 @@ warming_lvl_dict=settings.warming_lvl_dict
 languages={'en':'English'}
 
 result=settings.result
+result_other=settings.result_other
 
 # # not used, but could be useful
 # def flash_errors(form):
@@ -116,6 +117,11 @@ def choices():
         # get country table snippet
         result_snippet=result.loc[(result['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result['Irrigation']=='actual') & (result['CO2']=='co2')]
 
+        result_snippet_other=result_other.loc[(result_other['Country']==pycountry.countries.get(alpha_3=s['country']).name) & (result_other['Irrigation']=='actual') & (result_other['CO2']=='co2')]
+        set(result_snippet_other['Crop'])
+
+        print(result_snippet_other)
+
 
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
@@ -131,7 +137,9 @@ def choices():
             'form_warming_lvl':form_warming_lvl,
 
             'result_snippet':result_snippet.round(2),
-            'crops':s['indicator_avail'],
+            'result_snippet_other':result_snippet_other.round(2),
+            'crops':set(result_snippet['Crop']),
+            'crops_other':set(result_snippet_other['Crop']),
 
             'indicator':indicator_dict[lang][s['indicator']],
         }
@@ -229,6 +237,12 @@ def download_data():
   result_snippet.to_csv('app/static/data/'+session['country']+'.csv',sep=';')
   return send_from_directory(directory='static/data/', filename=session['country']+'.csv',as_attachment=True)
 
+@app.route('/download_data_other',  methods=('GET',"POST", ))
+def download_data_other():
+  print request
+  result_snippet_other=result_other.loc[(result_other['Country']==pycountry.countries.get(alpha_3=session['country']).name) & (result_other['Irrigation']=='actual') & (result_other['CO2']=='co2')]
+  result_snippet_other.to_csv('app/static/data/'+session['country']+'_other.csv',sep=';')
+  return send_from_directory(directory='static/data/', filename=session['country']+'_other.csv',as_attachment=True)
 
 # @app.route('/user_type_choice',  methods=('POST', ))
 # def user_type_choice():

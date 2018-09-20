@@ -55,6 +55,22 @@ result['Country'][result['Country']=='Congo_DemRep']='Congo, The Democratic Repu
 result['Country'][result['Country']=='Cote_d_Ivoire']="Côte d'Ivoire"
 result['Country']=[cou.replace('_',' ') for cou in result['Country']]
 
+result['delta.yield.median']=[int(round(num)) for num in result['delta.yield.median']*100]
+result['delta.yield.Q1']=[int(round(num)) for num in result['delta.yield.Q1']*100]
+result['delta.yield.Q3']=[int(round(num)) for num in result['delta.yield.Q3']*100]
+result['Area']=[int(round(num)) for num in result['Area']]
+
+result_other=pd.read_csv('app/static/data/isimip_cropimpact_warmlevel_deltaval_othercrops.csv',sep=';')
+result_other['Crop'][result_other['Crop']=='soy']='soybean'
+result_other['Country'][result_other['Country']=='Congo_DemRep']='Congo, The Democratic Republic of the'
+result_other['Country'][result_other['Country']=='Cote_d_Ivoire']="Côte d'Ivoire"
+result_other['Country']=[cou.replace('_',' ') for cou in result_other['Country']]
+
+result_other['delta.yield.median']=[int(round(num)) for num in result_other['delta.yield.median']*100]
+result_other['delta.yield.Q1']=[int(round(num)) for num in result_other['delta.yield.Q1']*100]
+result_other['delta.yield.Q3']=[int(round(num)) for num in result_other['delta.yield.Q3']*100]
+result_other['Area']=[int(round(num)) for num in result_other['Area']]
+
 # indicators, units, timesteps, long names
 ind_dict={
     'maize':{'unit':'t ha-1 yr-1','time_step':'yearly'},
