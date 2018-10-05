@@ -1,5 +1,4 @@
-app/static/plots_maps/*
-app/static/plots_boxplots/*
-app/static/data/*
-app/*pyc
-*pyc
+*_Store
+*.png
+*.pdf
+*.csv

@@ -9,7 +9,7 @@
   <h2>Crop Yield Impact Projections </h2>
   <p>These projections are computed from the <a href="https://www.isimip.org/protocol/#isimip-fast-track" target="_blank">ISIMIP Fast-Track archive</a>
     based on six global gridded crop models driven by five global climate models from <a href="https://cmip.llnl.gov/cmip5/" target="_blank">CMIP5</a>
-    following RCP8.5.</p>
+    following RCP8.5. The map on the right end-side shows the relative increase in yield if additional irrigation is applied on present day harvested areas, assuming irrigation water is not limiting.</p>
   <p>Click on <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high-resolution graphics.</p>
 
   <!-- country choice -->
@@ -35,13 +35,12 @@
   <!-- warming level choice  -->
   <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
   <form method="POST" action="/warming_lvl_choice" id="warming_lvl_id">
-    <h3>Select a Warming Level</h3>
+    <h3>Select a Warming Level (above preindustrial)</h3>
     {{ form_warming_lvl.warming_lvls(onchange='change_something("warming_lvl_id");') }}
   </form>
   </div>
 
 </div>
-
 
 <!-- bottom part of the website -->
 <!-- check if the id is right here!!! -->
