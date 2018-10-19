@@ -25,7 +25,6 @@ from werkzeug.routing import BuildError
 import pandas as pd
 import pycountry
 
-
 import forms
 
 import settings
@@ -33,7 +32,7 @@ ind_dict=settings.ind_dict
 indicator_dict=settings.indicator_dict
 form_labels=settings.form_labels
 warming_lvl_dict=settings.warming_lvl_dict
-languages={'en':'English'}
+languages={'en':'English','fr':'Français'}
 
 result=settings.result
 result_other=settings.result_other
@@ -122,6 +121,8 @@ def choices():
         # the following dicts will fill gaps in choices_en.html with text corresponding to the choices made by the user
         # I'm not sure if this is the most elegant way
         context={
+            'language':get_language_tag(),
+
             'hist_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_hist.png',
             'proj_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_'+s['warming_lvl']+'.png',
             'irr_added_value_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_irr-added-value_'+s['warming_lvl']+'.png',
@@ -198,7 +199,8 @@ def language_choice():
   if session['language']=='fr': lang=1
   lang*=-1
   session['language']=['en','fr'][lang+1]
-  return redirect(url_for(session['location']))
+  #return redirect(url_for(session['location']))
+  return redirect(url_for("choices"))
 
 @app.route('/go_to_choices',  methods=("POST", ))
 def go_to_choices():
@@ -219,7 +221,8 @@ def render_contact():
 @app.route('/documentation')
 def documentation():
   session['location']='documentation'
-  return render_template('documentation_'+session['language']+'.html',language=get_language_tag())
+  #return render_template('documentation_'+session['language']+'.html',language=get_language_tag())
+  return send_from_directory(directory='static/', filename='regio-crop_documentation_16.10.2018_'+session['language']+'.pdf',as_attachment=True)
 
 @app.route('/download_plot/<request>',  methods=('GET',"POST", ))
 def download_plot(request):
