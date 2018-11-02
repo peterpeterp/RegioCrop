@@ -212,7 +212,7 @@ def render_home():
 
 @app.route('/about',  methods=('GET', ))
 def render_about():
-  return render_template('about.html')
+  return render_template('about_'+session['language']+'.html')
 
 @app.route('/contact',  methods=('GET', ))
 def render_contact():
