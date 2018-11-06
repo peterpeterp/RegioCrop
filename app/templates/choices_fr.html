@@ -1,0 +1,144 @@
+{% extends "index.html" %}
+{% block content %}
+<div id="loading"><div id="overlay"></div><div id='overlay_text'><h1>Loading ... </h1></div></div>
+<div id="content">
+
+
+<!-- This is the gray bar -->
+<div id="LeftPanel" style="width: 100%; padding-left: 2%; padding-right: 2%; height: 100%; float: left; background: rgba(170,170,170,0.5);">
+  <h2>Projections d'impact sur le rendement des cultures </h2>
+  <p>Ces projections sont calculées à partir de l’archive <a href="https://www.isimip.org/protocol/#isimip-fast-track" target="_blank">ISIMIP Fast-Track archive</a>. Les données de l’archive ISIMIP pour le secteur agricole utilisées ont été générées par un ensemble de six modèles de cultures globaux en grille utilisant les données climatiques issues de cinq modèles de circulation générale du projet d'inter-comparaison des modèles couplés phase 5 (<a href="https://cmip.llnl.gov/cmip5/" target="_blank">CMIP5</a>) suivant le scénario RCP8.5. La carte à droite montre l'augmentation relative du rendement si l’irrigation est appliquée dans les zones de cultures qui sont actuellement pluviales, en supposant que l'eau d'irrigation n’est pas limitée.</p>
+  <p>Cliquer sur le <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> pour télécharger les graphes en haute résolution.</p>
+
+  <!-- country choice -->
+  <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
+  <form method="POST" action="/country_choice" id="country_id">
+    <h3>Sélectionner un pays</h3>
+    {{ form_country.countrys(onchange='change_something("country_id");') }}
+    <br>
+  </form>
+  </div>
+
+  <!-- indicator choice  -->
+  <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
+  <form method="POST" action="/indicator_choice" id="indicator_id">
+    <h3>Sélectionner une culture</h3>
+    {% if small_region_warning==True %}
+      <p class=warn_txt><b>Warning: </b>{{ reduced_inidicator_set_txt }}</p>
+    {% endif %}
+    {{ form_indicator.indicators(onchange='change_something("indicator_id");') }}
+  </form>
+  </div>
+
+  <!-- warming level choice  -->
+  <div id="LeftPanel" style="width: 30%; height: 100%; float: left; padding-left: 2%;">
+  <form method="POST" action="/warming_lvl_choice" id="warming_lvl_id">
+    <h3>Sélectionner un niveau de réchauffement (au-dessus du niveau préindustriel)</h3>
+    {{ form_warming_lvl.warming_lvls(onchange='change_something("warming_lvl_id");') }}
+  </form>
+  </div>
+
+</div>
+
+<!-- bottom part of the website -->
+<!-- check if the id is right here!!! -->
+<div id="LeftPanel" style="width: 100%; float: left;">
+
+  <!-- left top plot -->
+  <div id="LeftPanel" style="width: 275pt; float: left;">
+      <figure>
+        <IMG SRC={{ hist_map }} ALT='{{ hist_map }}' WIDTH=100%></IMG>
+      </figure>
+      <a class="label label-primary" href={{"/download_plot/"+hist_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">pdf</a>
+      <p style="width: 230pt; text-align:justify;"><strong>Rendement simulé (t/ha/an) à l’an 2000</strong> (+0,61 ° C par rapport à la période préindustrielle) sans distinction des zones de cultures pluviales et irriguées.</p>
+  </div>
+
+  <!-- middle top plot -->
+  <div id="LeftPanel" style="width: 275pt; float: left; ">
+      <figure>
+        <IMG SRC={{ proj_map }} ALT={{ proj_map }} WIDTH=100%></IMG>
+      </figure>
+      <a class="label label-primary" href={{"/download_plot/"+proj_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">pdf</a>
+      <p style="width: 230pt; text-align:justify;"><strong>Variation projetée du rendement (%) par rapport à l’an 2000 </strong> (médiane de l'ensemble multi-modèle). Les endroits en jaune présentent un faible niveau d'impact (entre -5 et 5%).
+        Pour les impacts plus importants, les cellules de la grille apparaissent en gris lorsque les modèles ne concordent pas sur le signe du changement.</p>
+  </div>
+
+  <!-- right top plot -->
+  <div id="LeftPanel" style="width: 275pt; float: left; ">
+      <figure>
+        <IMG SRC={{ irr_added_value_map }} ALT={{ irr_added_value_map }} WIDTH=100%></IMG>
+      </figure>
+      <a class="label label-primary" href={{"/download_plot/"+irr_added_value_map.split('/')[-1]}} target="_blank"  style="margin-right: 5px;">pdf</a>
+      <p style="width: 230pt; text-align:justify;"><strong>Augmentation relative du rendement (%) si l'irrigation est appliquée dans les zones de cultures qui sont actuellement pluviales</strong>,
+      en supposant qu'il n'y ait pas de limitation d'eau (notez que cela ne tient pas compte de la disponibilité réelle en eau d’irrigation).</p>
+  </div>
+</div>
+
+<!-- table at the bottom -->
+<div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%; padding-top: 40pt;">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Culture </th> <th>Superficie cultivée (ha) ver l’an 2000</th> <th colspan="5"><div align="center">Changement du rendement moyen national (%) par rapport à l’an 2000</div></th>
+      </tr>
+      <tr>
+        <td>  </td> <td> </td> <td style="text-align:center;">+1.0°C</td> <td style="text-align:center;">+1.5°C</td> <td style="text-align:center;">+2°C</td> <td style="text-align:center;">+2.5°C</td> <td style="text-align:center;">+3.0°C</td>
+      </tr>
+      {% for crop in crops %}
+        <tr>
+          <td style="text-align:center;">{{crop}}</td>
+          <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
+          {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
+            <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
+              [{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,8] }} to {{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,11] }}]
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="label label-primary" href="/download_data" target="_blank"  style="margin-right: 5px;">Télécharger le tableau</a>
+  <p><strong>Variation projetée du rendement (%) par rapport à l’an 2000 (médiane de l'ensemble multi-modèle) pour chaque culture à différent niveaux de réchauffement. La superficie totale cultivée au niveau national (en l’an 2000) est exprimée en ha. Les chiffres entre parenthèses représentent les premier et troisième quartiles.</p>
+</div>
+
+<div id="LeftPanel" style="width: 100%; height: 10pt; float: left; padding-left: 2%; padding-top: 10pt; background: rgba(170,170,170,0.8);">
+</div>
+
+<!-- additional table at the bottom -->
+<div id="LeftPanel" style="width: 100%; height: 100%; float: left; padding-left: 2%; padding-top: 1%; padding-right: 2%; padding-bottom: 2%;">
+    <div id="LeftPanel" style="width: 40%; height: 100%; float: center; padding: 1%;  background: rgba(170,100,100,0.3); margin:0 auto;">
+      <h3 style="color: darkred;">Seulement deux modèles de culture ont contribué aux résultats du tableau suivant.
+Ces résultats sont moins robustes que ce qui est présenté ci-dessus!</h3>
+    </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Culture </th> <th>Superficie cultivée (ha) en l’an 2000</th> <th colspan="5"><div align="center">Changement du rendement moyen national (%) par rapport à l’an 2000</div></th>
+      </tr>
+      <tr>
+        <td>  </td> <td> </td> <td style="text-align:center;">+1.0°C</td> <td style="text-align:center;">+1.5°C</td> <td style="text-align:center;">+2°C</td> <td style="text-align:center;">+2.5°C</td> <td style="text-align:center;">+3.0°C</td>
+      </tr>
+      {% for crop in crops_other %}
+        <tr>
+          <td style="text-align:center;">{{crop}}</td>
+          <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']=='1p5')].loc[(result_snippet_other['Crop']== crop)].iloc[0,3]}}</td>
+          {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
+            <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,9] }}
+              [{{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,8] }} to {{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,11] }}]
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="label label-primary" href="/download_data_other" target="_blank"  style="margin-right: 5px;">Télécharger le tableau</a>
+  <p><strong>Variation projetée du rendement (%) par rapport à l’an 2000 (médiane de l'ensemble multi-modèle) pour chaque culture à différent niveaux de réchauffement. La superficie totale cultivée au niveau national (en 2000) est exprimée en ha. Les chiffres entre parenthèses représentent les premier et troisième quartiles.</p>
+</div>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

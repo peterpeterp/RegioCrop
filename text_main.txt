@@ -1,0 +1,44 @@
+Crop Yield Impact Projections
+
+These projections are computed from the ISIMIP Fast-Track archive based on six global gridded crop models driven by five global climate models from CMIP5 following RCP8.5. The map on the right end-side shows the relative increase in yield if additional irrigation is applied on present day harvested areas, assuming irrigation water is not limiting.
+
+Click on pdf to download high-resolution graphics.
+Select a Country
+
+Select a Crop
+Select a Warming Level (above preindustrial)
+static/plots_maps/BEN_maize_total_hist.png
+pdf
+
+Simulated crop yield (t/ha/yr) circa year 2000 (+0.61°C above preindustrial). Data are shown for combined present-day irrigated and rainfed harvested areas.
+static/plots_maps/BEN_maize_total_1p5.png
+pdf
+
+Projected change in yield (%) relative to 2000 (multi-model ensemble median). Yellow areas show small level of impacts (range [-5;5%]). For larger level of impacts, grid cells where the models do not agree in the sign of change are shown in grey.
+static/plots_maps/BEN_maize_irr-added-value_1p5.png
+pdf
+
+Relative increase in yield (%) if irrigation is applied on present day rainfed harvested areas, assuming no water limitation (note this does not account for actual irrigated water availability).
+Crop 	Harvested area (ha) circa 2000
+Change in national average yield (%) relative to year 2000
+		+1.0°C 	+1.5°C 	+2°C 	+2.5°C 	+3.0°C
+maize 	477027 	-3 [-5 to -1] 	-4 [-11 to -2] 	-5 [-19 to -2] 	-12 [-24 to -1] 	-15 [-33 to -4]
+rice 	26873 	0 [-5 to 3] 	0 [-4 to 6] 	1 [-5 to 9] 	0 [-7 to 8] 	-2 [-12 to 8]
+soybean 	5823 	2 [-3 to 8] 	3 [-3 to 13] 	6 [-8 to 25] 	6 [-9 to 31] 	8 [-13 to 38]
+Download table
+
+Projected changes in yields (%) relative to 2000 (multi-model ensemble median) for each crop grown in the country at different waming levels. Total national harvested areas areas (circa 2000) are given in ha. Numbers in brackets represent the first and third quartiles.
+Only two crop models contributed to the results of the following table.
+These results are less robust than what is presented above!
+Crop 	Harvested area (ha) circa 2000
+Change in national average yield (%) relative to year 2000
+		+1.0°C 	+1.5°C 	+2°C 	+2.5°C 	+3.0°C
+millet 	42177 	-6 [-10 to -1] 	-9 [-14 to -4] 	-14 [-19 to -10] 	-24 [-25 to -23] 	-34 [-35 to -34]
+groundnut 	96929 	-5 [-5 to -4] 	-15 [-15 to -14] 	-21 [-21 to -21] 	-27 [-28 to -27] 	-38 [-40 to -36]
+beans 	87860 	-3 [-4 to -2] 	-6 [-6 to -6] 	-5 [-6 to -5] 	-8 [-9 to -8] 	-15 [-18 to -12]
+cassava 	155814 	-9 [-11 to -7] 	-20 [-22 to -18] 	-23 [-26 to -21] 	-31 [-34 to -28] 	-39 [-44 to -34]
+sorghum 	157983 	-6 [-9 to -4] 	-14 [-15 to -13] 	-19 [-20 to -18] 	-27 [-27 to -26] 	-37 [-39 to -34]
+cotton 	319774 	-8 [-10 to -6] 	-19 [-20 to -19] 	-27 [-28 to -26] 	-34 [-36 to -33] 	-46 [-49 to -42]
+Download table
+
+Projected changes in yields (%) relative to 2000 (multi-model ensemble median) for each crop grown in the country at different waming levels. Total national harvested areas areas (circa 2000) are given in ha. Numbers in brackets represent the first and third quartiles.
