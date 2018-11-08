@@ -101,7 +101,7 @@ indicator_short_dict={'fr':{
     'soybean':'soja',
     'rice':'riz',
     'millet':'millet',
-    'groundnut':'arachide'
+    'groundnut':'arachide',
     'beans':'haricots',
     'cassava':'manioc',
     'sorghum':'sorgho',
@@ -119,7 +119,7 @@ indicator_short_dict={'fr':{
     'groundnut':'groundnut',
     'beans':'beans',
     'cassava':'cassava',
-    'sorghum':,'sorghum',
+    'sorghum':'sorghum',
     'cotton':'cotton',
     'peas':'peas',
     'sugarcane':'sugarcane',
