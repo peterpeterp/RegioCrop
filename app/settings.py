@@ -94,6 +94,21 @@ indicator_dict={'fr':{
 	}
 }
 
+# names of indicators
+indicator_short_dict={'fr':{
+    'maize':'maïs',
+    'wheat':'blé',
+    'soybean':'soja',
+    'rice':'riz',
+	},
+	'en':{
+    'maize':'maize',
+    'wheat':'wheat',
+    'soybean':'soy',
+    'rice':'rice',
+	}
+}
+
 
 # some french and english dictionaries
 # there might be smoother way to deal with translations

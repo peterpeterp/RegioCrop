@@ -30,6 +30,7 @@ import forms
 import settings
 ind_dict=settings.ind_dict
 indicator_dict=settings.indicator_dict
+indicator_short_dict=settings.indicator_short_dict
 form_labels=settings.form_labels
 warming_lvl_dict=settings.warming_lvl_dict
 languages={'en':'English','fr':'Français'}
@@ -139,6 +140,7 @@ def choices():
             'crops_other':set(result_snippet_other['Crop']),
 
             'indicator':indicator_dict[lang][s['indicator']],
+            'indicator_dict':indicator_short_dict[lang],
         }
 
         session['location']='choices'
