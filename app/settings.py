@@ -81,10 +81,10 @@ ind_dict={
 
 # names of indicators
 indicator_dict={'fr':{
-    'maize':'rendement du maïs',
-    'wheat':'rendement du blé',
-    'soybean':'rendement du soja',
-    'rice':'rendement du riz',
+    'maize':'Rendement du maïs',
+    'wheat':'Rendement du blé',
+    'soybean':'Rendement du soja',
+    'rice':'Rendement du riz',
 	},
 	'en':{
     'maize':'maize yield',
