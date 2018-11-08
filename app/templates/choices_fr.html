@@ -86,7 +86,7 @@
       </tr>
       {% for crop in crops %}
         <tr>
-          <td style="text-align:center;">{{indicator_dict[crop]}}</td>
+          <td style="text-align:center;">{{indicator_short_dict[crop]}}</td>
           <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
           {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
             <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
@@ -120,7 +120,7 @@ Ces résultats sont moins robustes que ce qui est présenté ci-dessus!</h3>
       </tr>
       {% for crop in crops_other %}
         <tr>
-          <td style="text-align:center;">{{crop}}</td>
+          <td style="text-align:center;">{{indicator_short_dict[crop]}}</td>
           <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']=='1p5')].loc[(result_snippet_other['Crop']== crop)].iloc[0,3]}}</td>
           {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
             <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,9] }}

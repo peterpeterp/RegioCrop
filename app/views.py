@@ -140,7 +140,7 @@ def choices():
             'crops_other':set(result_snippet_other['Crop']),
 
             'indicator':indicator_dict[lang][s['indicator']],
-            'indicator_dict':indicator_short_dict[lang],
+            'indicator_short_dict':indicator_short_dict[lang],
         }
 
         session['location']='choices'

@@ -100,12 +100,30 @@ indicator_short_dict={'fr':{
     'wheat':'blé',
     'soybean':'soja',
     'rice':'riz',
+    'millet':'millet',
+    'groundnut':'arachide'
+    'beans':'haricots',
+    'cassava':'manioc',
+    'sorghum':'sorgho',
+    'cotton':'coton',
+    'peas':'pois',
+    'sugarcane':'canne à sucre',
+    'sunflower':'tournesol'
 	},
 	'en':{
     'maize':'maize',
     'wheat':'wheat',
     'soybean':'soy',
     'rice':'rice',
+    'millet':'millet',
+    'groundnut':'groundnut',
+    'beans':'beans',
+    'cassava':'cassava',
+    'sorghum':,'sorghum',
+    'cotton':'cotton',
+    'peas':'peas',
+    'sugarcane':'sugarcane',
+    'sunflower':'sunflower'
 	}
 }
 

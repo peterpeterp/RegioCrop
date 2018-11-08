@@ -9,7 +9,7 @@
   <h2>Crop Yield Impact Projections </h2>
   <p>These projections are computed from the <a href="https://www.isimip.org/protocol/#isimip-fast-track" target="_blank">ISIMIP Fast-Track archive</a>
     based on six global gridded crop models driven by five global climate models from <a href="https://cmip.llnl.gov/cmip5/" target="_blank">CMIP5</a>
-    following RCP8.5. The map on the right hand-side shows the relative increase in yield if additional irrigation is applied on present day harvested areas, assuming irrigation water is not limiting.</p>
+    following RCP8.5. The map on the right hand-side shows the relative increase in yield if additional irrigation is applied on present-day harvested areas, assuming irrigation water is not limiting.</p>
   <p>Click on <a class="label label-primary" tyle="margin-right: 5px;">pdf</a> to download high-resolution graphics.</p>
 
   <!-- country choice -->
@@ -90,7 +90,7 @@
       </tr>
       {% for crop in crops %}
         <tr>
-          <td style="text-align:center;">{{indicator_dict[crop]}}</td>
+          <td style="text-align:center;">{{indicator_short_dict[crop]}}</td>
           <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']=='1p5')].loc[(result_snippet['Crop']== crop)].iloc[0,3]}}</td>
           {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
             <td style="text-align:center;">{{ result_snippet.loc[(result_snippet['Warming']== wlvl)].loc[(result_snippet['Crop']== crop)].iloc[0,9] }}
@@ -124,7 +124,7 @@
       </tr>
       {% for crop in crops_other %}
         <tr>
-          <td style="text-align:center;">{{crop}}</td>
+          <td style="text-align:center;">{{indicator_short_dict[crop]}}</td>
           <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']=='1p5')].loc[(result_snippet_other['Crop']== crop)].iloc[0,3]}}</td>
           {% for wlvl in ['1p0','1p5','2p0','2p5','3p0'] %}
             <td style="text-align:center;">{{ result_snippet_other.loc[(result_snippet_other['Warming']== wlvl)].loc[(result_snippet_other['Crop']== crop)].iloc[0,9] }}
