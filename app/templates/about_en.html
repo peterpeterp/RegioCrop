@@ -1,21 +1,21 @@
-{% extends "layout.html" %}
-  {% block content %}
+{% extends "index.html" %}
+{% block content %}
+<div id="loading"><div id="overlay"></div><div id='overlay_text'><h1>Loading ... </h1></div></div>
+<div id="content">
+<h5>
+  This tool has been created by Peter Pfleiderer (peter.pfleidererATclimateanalytics.org),
+  Quentin Lejeune (quentin.lejeuneATclimateanalytics.org) and Delphine Deryng (delphine.deryngATclimateanalytics.org).<br><br>
 
-  <h5>
-    This tool has been created by Peter Pfleiderer (peter.pfleidererATclimateanalytics.org),
-    Quentin Lejeune (quentin.lejeuneATclimateanalytics.org) and Delphine Deryng (delphine.deryngATclimateanalytics.org).<br><br>
+  Global warming levels are taken from the <a href="http://wlcalc.climateanalytics.org">Warming Attribution Calculator</a>.
+  The regional masking is based on scripts developped by Mario Krapp.<br><br>
 
-    Global warming levels are taken from the <a href="http://wlcalc.climateanalytics.org">Warming Attribution Calculator</a>.
-    The regional masking is based on scripts developped by Mario Krapp.<br><br>
+  We acknowledge the Inter-Sectoral Impact Model Intercomparison Project (ISIMIP, www.isimip.org)
+  and the Agricultural Model Intercomparison and Improvement Project (AgMIP, www.agmip.org)
+  for jointly developing the modeling protocol and setting the modeling intercomparison exercise
+  for the agriculture sector. We also thank the global gridded crop modelling groups (listed in
+  <a href='http://regioclim.climateanalytics.org/documentation#doc_ensemble'>this documentation</a>)
+  for producing and making available their model output.<br><br>
 
-    We acknowledge the Inter-Sectoral Impact Model Intercomparison Project (ISIMIP, www.isimip.org)
-    and the Agricultural Model Intercomparison and Improvement Project (AgMIP, www.agmip.org)
-    for jointly developing the modeling protocol and setting the modeling intercomparison exercise
-    for the agriculture sector. We also thank the global gridded crop modelling groups (listed in
-    <a href='http://regioclim.climateanalytics.org/documentation#doc_ensemble'>this documentation</a>)
-    for producing and making available their model output.<br><br>
-
-    The work leading to this application has received funding from the German Ministry of Environment as part of its International Climate Initiative.>
-  </h5>
-  {% endblock %}
+  The work leading to this application has received funding from the German Ministry of Environment as part of its International Climate Initiative.>
+</h5>
 {% endblock %}
