@@ -123,6 +123,7 @@ def choices():
         # I'm not sure if this is the most elegant way
         context={
             'language':get_language_tag(),
+            'lan':lang,
 
             'hist_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_hist.png',
             'proj_map':'static/plots_maps/'+s['country']+'_'+s['indicator']+'_total_'+s['warming_lvl']+'.png',
