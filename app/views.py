@@ -226,6 +226,7 @@ def documentation():
   session['location']='documentation'
   print(session['language'])
   #return render_template('documentation_'+session['language']+'.html',language=get_language_tag())
+  print('regio-crop_documentation_16.10.2018_'+session['language']+'.pdf')
   return send_from_directory(directory='static/', filename='regio-crop_documentation_16.10.2018_'+session['language']+'.pdf',as_attachment=True)
 
 @app.route('/download_plot/<request>',  methods=('GET',"POST", ))
