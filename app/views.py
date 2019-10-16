@@ -221,13 +221,14 @@ def render_about():
 def render_contact():
   return render_template('contact.html')
 
-@app.route('/documentation')
-def documentation():
-  session['location']='documentation'
-  print(session['language'])
-  #return render_template('documentation_'+session['language']+'.html',language=get_language_tag())
-  print('regio-crop_documentation_16.10.2018_'+session['language']+'.pdf')
-  return send_from_directory(directory='static/', filename='regio-crop_documentation_16.10.2018_'+session['language']+'.pdf',as_attachment=True)
+@app.route('/documentation_en')
+def documentation_en():
+  return send_from_directory(directory='static/', filename='regio-crop_documentation_16.10.2018_en.pdf',as_attachment=True)
+
+@app.route('/documentation_fr')
+def documentation_fr():
+  return send_from_directory(directory='static/', filename='regio-crop_documentation_16.10.2018_fr.pdf',as_attachment=True)
+
 
 @app.route('/download_plot/<request>',  methods=('GET',"POST", ))
 def download_plot(request):
